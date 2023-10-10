@@ -55,23 +55,23 @@ let pokemon_list_filtered = [];
 
 const type_colors = {
     "normal": "A8A77A",
-    "fire": "EE8130",
-    "water": "6390F0",
-    "electric": "F7D02C",
-    "grass": "7AC74C",
-    "ice": "96D9D6",
-    "fighting": "C22E28",
+    "feu": "EE8130",
+    "eau": "6390F0",
+    "électrik": "F7D02C",
+    "plante": "7AC74C",
+    "glace": "96D9D6",
+    "combat": "C22E28",
     "poison": "A33EA1",
-    "ground": "E2BF65",
-    "flying": "A98FF3",
-    "psychic": "F95587",
-    "bug": "A6B91A",
-    "rock": "B6A136",
-    "ghost": "735797",
+    "sol": "E2BF65",
+    "vol": "A98FF3",
+    "psy": "F95587",
+    "insecte": "A6B91A",
+    "roche": "B6A136",
+    "spectre": "735797",
     "dragon": "6F35FC",
-    "dark": "705746",
-    "steel": "B7B7CE",
-    "fairy": "D685AD"
+    "ténèbres": "705746",
+    "acier": "B7B7CE",
+    "fée": "D685AD"
 };
 
 const substitute = { "id": 0, "entry": 0, "name": "substitute", "form_name": "substitute", "type1": "normal", "type2": null, "has_female": false, "has_shiny": false, "sprite_type": "none", "sprites": { "front_default": null, "front_shiny": null, "front_female": null, "front_shiny_female": null } };
@@ -393,6 +393,7 @@ function update_legend() {
 
     number.innerText = "#" + entry;
     name.innerText = pokemon_name;
+	console.log(pokemon_name);
 }
 
 
