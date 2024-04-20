@@ -304,11 +304,12 @@ function update_background() {
     }
 
     if (backgroundtype == "lineargradient") {
-        type2_color = type2_color || backgroundcolor;
+		//if the pokemon is mono-type, the gradient will be one color. - Edited by Yosh64
+        type2_color = type2_color || type1_color;
 
         main.style.background = `linear-gradient(${gradientangle}deg, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]}), rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]}))`;
     } else if (backgroundtype == "radialgradient") {
-        type2_color = type2_color || backgroundcolor;
+        type2_color = type2_color || type1_color;
 
         main.style.background = `radial-gradient(circle, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]}), rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]}))`;
     } else if (backgroundtype == "mixtypes") {
