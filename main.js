@@ -29,13 +29,13 @@ let allowstaticgen5sprites = false;
 let allowstaticgen8sprites = false;
 let allowalternateforms = true;
 let automaticpokemonswitching = true;
-let backgroundtype = "lineargradient";
+let backgroundtype = "radialgradient";
 let gradientangle = 135;
 let whitelistedpokemon = [];
 let blacklistedpokemon = [];
 let pokemonswitchingtimer = 300;
 let schemecolor = [255, 255, 0];
-let backgroundcolor = [127, 127, 127];
+let backgroundcolor = [255, 255, 255];
 let customtypecolor = true;
 let enabletextshadow = true;
 let shadowcolor = [0, 0, 0];
@@ -54,24 +54,46 @@ let pokemon_list_filtered = [];
 
 
 const type_colors = {
-    "normal": "A8A77A",
-    "feu": "EE8130",
-    "eau": "6390F0",
-    "électrik": "F7D02C",
-    "plante": "7AC74C",
-    "glace": "96D9D6",
-    "combat": "C22E28",
-    "poison": "A33EA1",
-    "sol": "E2BF65",
-    "vol": "A98FF3",
-    "psy": "F95587",
-    "insecte": "A6B91A",
-    "roche": "B6A136",
-    "spectre": "735797",
-    "dragon": "6F35FC",
-    "ténèbres": "705746",
-    "acier": "B7B7CE",
-    "fée": "D685AD"
+    "normal": "868886",
+    "feu": "c22122",
+    "eau": "226cca",
+    "électrik": "d3a200",
+    "plante": "358822",
+    "glace": "35b6d8",
+    "combat": "d86c00",
+    "poison": "9141cb",
+    "sol": "7a441b",
+    "vol": "6d9cca",
+    "psy": "ca3766",
+    "insecte": "7a8815",
+    "roche": "948f6d",
+    "spectre": "5e375e",
+    "dragon": "4351be",
+    "ténèbres": "433735",
+    "acier": "51889b",
+    "fée": "ca5eca"
+};
+
+//list used when pokemon is mono-type
+const mono_type2_colors = {
+    "normal": "676867",
+    "feu": "951a1a",
+    "eau": "1a539b",
+    "électrik": "a27c00",
+    "plante": "29681a",
+    "glace": "298ca6",
+    "combat": "a65300",
+    "poison": "5e2a84",
+    "sol": "5e3415",
+    "vol": "53789b",
+    "psy": "9b2a4e",
+    "insecte": "5e6810",
+    "roche": "716e53",
+    "spectre": "482a48",
+    "dragon": "343e92",
+    "ténèbres": "342a29",
+    "acier": "3e6877",
+    "fée": "9b489b"
 };
 
 const substitute = { "id": 0, "entry": 0, "name": "substitute", "form_name": "substitute", "type1": "normal", "type2": null, "has_female": false, "has_shiny": false, "sprite_type": "none", "sprites": { "front_default": null, "front_shiny": null, "front_female": null, "front_shiny_female": null } };
@@ -290,6 +312,7 @@ function randomize_pokemon() {
 
 function update_background() {
     let type1_color = type_colors[current_pokemon.type1];
+	let mono_type2_color = mono_type2_colors[current_pokemon.type1];
     let type2_color = type_colors[current_pokemon.type2];
 
     // convert hex to [r, g, b]
@@ -301,19 +324,23 @@ function update_background() {
         type2_color = type2_color.match(/.{1,2}/g).map((number) => {
             return parseInt(number, 16);
         });
-    }
+    }else{
+		mono_type2_color = mono_type2_color.match(/.{1,2}/g).map((number) => {
+        return parseInt(number, 16);
+		});
+	}
 
     if (backgroundtype == "lineargradient") {
 		//if the pokemon is mono-type, the gradient will be one color. - Edited by Yosh64
-        type2_color = type2_color || type1_color;
+        type2_color = type2_color || mono_type2_color;
 
-        main.style.background = `linear-gradient(${gradientangle}deg, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]}), rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]}))`;
+        main.style.background = `linear-gradient(${gradientangle}deg, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]}) 40%, rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]})60%)`;
     } else if (backgroundtype == "radialgradient") {
-        type2_color = type2_color || type1_color;
+        type2_color = type2_color || mono_type2_color;
 
-        main.style.background = `radial-gradient(circle, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]}), rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]}))`;
+        main.style.background = `radial-gradient(circle, rgb(${type1_color[0]}, ${type1_color[1]}, ${type1_color[2]})30%, rgb(${type2_color[0]}, ${type2_color[1]}, ${type2_color[2]})100%)`;
     } else if (backgroundtype == "mixtypes") {
-        type2_color = type2_color || type1_color;
+        type2_color = type2_color || mono_type2_color;
 
         // mix the colors of the types
         let mixed_color = [
